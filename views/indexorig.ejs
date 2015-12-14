@@ -117,7 +117,7 @@
 
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="panel panel-danger">
             <div class="panel-heading" align="center"><h4>Top 10 Players by Rank (Active in 30 days)</h4></div>
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -132,10 +132,8 @@
                 </thead>
                 <% for(var i = 0; i < data.length; i++) { %>
                 <tr>
-
-                    <th id="link<%= i %>"><a
-                                href="https://steamcommunity.com/profiles/<%= data[i].auth %>/"><%= data[i].name %></a>
-                    </th>
+                    <!---->
+                    <th id="link<%= i %>"><a href="https://steamcommunity.com/profiles/<%= data[i].auth %>/"><%= data[i].name %></a></th>
                     <th><%= data[i].wins %></th>
                     <th><%= data[i].losses %></th>
                     <th><%= data[i].rating %></th>
@@ -145,32 +143,30 @@
             </table>
         </div>
     </div>
-    <div class="col-md-12" id="profile">
+    <div class="col-md-6" id="profile">
         <div class="panel panel-danger" id="clicked">
-            <div class="panel-heading" align="center"><h4>Top 10 Bottom Players (All time)</h4></div>
-            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Wins</th>
-                    <th>Losses</th>
-                    <th>Rating</th>
-                    <th>Last Date</th>
-                </tr>
-                </thead>
-                <% for(var i = 0; i < data.length; i++) { %>
-                <tr>
-                    <!---->
-                    <th id="link<%= i %>"><a
-                                href="https://steamcommunity.com/profiles/<%= player[i].auth %>/"><%= player[i].name %></a>
-                    </th>
-                    <th><%= player[i].wins %></th>
-                    <th><%= player[i].losses %></th>
-                    <th><%= player[i].rating %></th>
-                    <th><%= new Date(player[i].lastTime * 1000) %></th>
-                </tr>
-                <% } %>
-            </table>
+            <div class="panel-heading" align="center"><h4>Your Profile</h4></div>
+            <div class="media">
+                <div class="media-left" style="padding-left: 5px">
+                    <a href="https://steamcommunity.com/profiles/<%= player[0].auth %>/">
+
+                    </a>
+                </div>
+
+                <div class="media-body">
+                    <h4 class="media-heading"><a
+                                href="https://steamcommunity.com/profiles/<%= player[0].auth %>/"><%= player[0].name %></a>
+                    </h4>
+
+                    <p>Wins: <%= player[0].wins %></p>
+
+                    <p>Loses: <%= player[0].losses %></p>
+
+                    <p>Rating: <%= player[0].rating %></p>
+
+                    <p>Last Played: <%= new Date(player[0].lastTime * 1000) %></p>
+                </div>
+            </div>
 
         </div>
     </div>

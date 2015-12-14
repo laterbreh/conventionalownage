@@ -52,33 +52,56 @@ router.get('/', function (req, res, next) {
             //console.log(results[x]);
             results[x].auth = sid.getSteamID64();
         }
-        db.query('SELECT * from multi1v1_stats ORDER BY rating ASC LIMIT 10', function (err, results2, fields) {
-            if (err) throw err;
-            for (var x = 0; x < results2.length; ++x) {
-                var sid = new SteamID(results2[x].auth);
-                results2[x].auth = sid.getSteamID64();
-            }
+        //console.log('Pushing Top 10 players by rank, most active in last 30 days...');
+        db.query('SELECT * from multi1v1_stats WHERE name = ?', ['THE GAIN TRAIN'], function (err, results2, fields) {
+            //console.log(err);
+
+            //console.log(results2[0]);
             var sid2 = new SteamID(results2[0].auth);
             results2[0].auth = sid2.getSteamID64();
             console.log(results2[0].auth);
-            db.query('select * from multi1v1_stats where lastTime > UNIX_TIMESTAMP(NOW() - INTERVAL 2 HOUR)', function (err, online, fields) {
-                Gamedig.query(servoptions, function(serv1data){
-                    if (!serv1data.hasOwnProperty('error')){
-                        Gamedig.query(serv2options, function(serv2data){
-                            if (!serv2data.hasOwnProperty('error')){
-                                res.render('index', {title: 'Express', data: results, player: results2, online: online.length, server1: serv1data, server2: serv2data });
+
+
+                if (!err) {
+                    var body2 = JSON.parse(body);
+                    console.log(body2.response.players[0].avatarmedium);
+                    results2[0].imageurl = body2.response.players[0].avatarmedium;
+                    db.query('select * from multi1v1_stats where lastTime > UNIX_TIMESTAMP(NOW() - INTERVAL 2 HOUR)', function (err, online, fields) {
+                        Gamedig.query(servoptions, function(serv1data){
+                            //console.log(serv1data);
+                            if (!serv1data.hasOwnProperty('error')){
+                                //console.log('good');
+                                //console.log(serv1data);
+                                //res.render('index', {title: 'Express', data: results, player: results2, online: online.length, server1: serv1data });
+                                Gamedig.query(serv2options, function(serv2data){
+                                    if (!serv2data.hasOwnProperty('error')){
+                                        res.render('index', {title: 'Express', data: results, player: results2, online: online.length, server1: serv1data, server2: serv2data });
+                                    } else {
+                                        res.render('index', {title: 'Express', data: results, player: results2, online: online.length});
+                                    }
+                                });
                             } else {
+                                //console.log('Not good')
                                 res.render('index', {title: 'Express', data: results, player: results2, online: online.length});
                             }
+
                         });
-                    } else {
-                        //console.log('Not good')
+
+                    });
+
+                } else {
+                    console.log(error);
+                    console.log(results2);
+                    //var online = getonlineplayers();
+                    //console.log('ONLINE:' + getonlineplayers());
+                    db.query('select * from multi1v1_stats where lastTime > UNIX_TIMESTAMP(NOW() - INTERVAL 2 HOUR)', function (err, online, fields) {
                         res.render('index', {title: 'Express', data: results, player: results2, online: online.length});
-                    }
+                    });
 
-                });
+                }
 
-            });
+
+
 
 
         });
