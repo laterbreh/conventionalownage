@@ -21,6 +21,11 @@ var serv2options = {
 //Make it so when they click on a player in top 10, where it says your profile, make it pull up their results.......
 //http://www.sitepoint.com/creating-restful-apis-express-4/
 
+//Make the page load faster?
+//Lets try async.parallel
+//https://github.com/caolan/async#parallel
+//http://stackoverflow.com/questions/17100682/how-to-render-multiple-result-from-mysql-query-on-the-same-ejs-file-on-node-js
+
 router.route('/top10').get(function(req,res) {
     db.query('select * from multi1v1_stats where rating > 1600 and lastTime > UNIX_TIMESTAMP(NOW() - INTERVAL 30 DAY) ORDER BY rating DESC LIMIT 10', function (err, results, fields) {
         if (err) throw err;
