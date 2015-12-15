@@ -1,68 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='https://bootswatch.com/cyborg/bootstrap.min.css'/>
-    <link rel='stylesheet' href='https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css'/>
-    <link rel='stylesheet' href="/stylesheets/style.css"/>
-    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css"/>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-</head>
-
-<script>
-    //http://www.tareeinternet.com/scripts/unescape.html
-    //this text is good, just edit it like you did with wins.
-    var text = "%3C%64%69%76%20%63%6C%61%73%73%3D%22%70%61%6E%65%6C%20%70%61%6E%65%6C%2D%64%61%6E%67%65%72%22%20%69%64%3D%22%63%6C%69%63%6B%65%64%22%3E%0A%20%20%20%20%20%20%20%20%3C%64%69%76%20%63%6C%61%73%73%3D%22%70%61%6E%65%6C%2D%68%65%61%64%69%6E%67%22%20%61%6C%69%67%6E%3D%22%63%65%6E%74%65%72%22%3E%3C%68%34%3E%59%6F%75%72%20%50%72%6F%66%69%6C%65%3C%2F%68%34%3E%3C%2F%64%69%76%3E%0A%20%20%20%20%20%20%20%20%3C%64%69%76%20%63%6C%61%73%73%3D%22%6D%65%64%69%61%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%64%69%76%20%63%6C%61%73%73%3D%22%6D%65%64%69%61%2D%6C%65%66%74%22%20%73%74%79%6C%65%3D%22%70%61%64%64%69%6E%67%2D%6C%65%66%74%3A%20%35%70%78%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%61%20%68%72%65%66%3D%22%68%74%74%70%73%3A%2F%2F%73%74%65%61%6D%63%6F%6D%6D%75%6E%69%74%79%2E%63%6F%6D%2F%70%72%6F%66%69%6C%65%73%2F%3C%25%3D%20%70%6C%61%79%65%72%5B%30%5D%2E%61%75%74%68%20%25%3E%2F%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%69%6D%67%20%73%72%63%3D%22%3C%25%3D%20%70%6C%61%79%65%72%5B%30%5D%2E%69%6D%61%67%65%75%72%6C%20%25%3E%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2F%61%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2F%64%69%76%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%64%69%76%20%63%6C%61%73%73%3D%22%6D%65%64%69%61%2D%62%6F%64%79%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%68%34%20%63%6C%61%73%73%3D%22%6D%65%64%69%61%2D%68%65%61%64%69%6E%67%22%3E%3C%61%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%68%72%65%66%3D%22%68%74%74%70%73%3A%2F%2F%73%74%65%61%6D%63%6F%6D%6D%75%6E%69%74%79%2E%63%6F%6D%2F%70%72%6F%66%69%6C%65%73%2F%3C%25%3D%20%70%6C%61%79%65%72%5B%30%5D%2E%61%75%74%68%20%25%3E%2F%22%3E%3C%25%3D%20%70%6C%61%79%65%72%5B%30%5D%2E%6E%61%6D%65%20%25%3E%3C%2F%61%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2F%68%34%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%70%20%69%64%3D%22%77%69%6E%73%22%3E%3C%2F%70%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%70%3E%4C%6F%73%65%73%3A%20%3C%25%3D%20%70%6C%61%79%65%72%5B%30%5D%2E%6C%6F%73%73%65%73%20%25%3E%3C%2F%70%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%70%3E%52%61%74%69%6E%67%3A%20%3C%25%3D%20%70%6C%61%79%65%72%5B%30%5D%2E%72%61%74%69%6E%67%20%25%3E%3C%2F%70%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%70%3E%4C%61%73%74%20%50%6C%61%79%65%64%3A%20%3C%25%3D%20%6E%65%77%20%44%61%74%65%28%70%6C%61%79%65%72%5B%30%5D%2E%6C%61%73%74%54%69%6D%65%20%2A%20%31%30%30%30%29%20%25%3E%3C%2F%70%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2F%64%69%76%3E%0A%20%20%20%20%20%20%20%20%3C%2F%64%69%76%3E%0A%0A%20%20%20%20%3C%2F%64%69%76%3E"
-    $(document).ready(function () {
-        //$('#example').DataTable();
-        //var el = document.getElementById('link0');
-        $('#link0').click(function () {
-            var toget = $('#link0').html();
-            console.log(toget);
-            $.get("http://localhost:3000/getuser/" + toget, function (player, status) {
-                console.log(player[0].name);
-                $('#profile').html(unescape(text));
-                //$('#thelink').html("");
-                //$('#profile').html("");
-                $('#wins').html("Wins: " + player[0].wins);
-                //document.getElementByID('clicked').innerHTML = ""
-            });
-        });
-    });
-    //el.onclick = show();
-
-
-</script>
-<body style="padding-top: 50px;">
-<div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a href="../" class="navbar-brand">Conventional Ownage</a>
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="../help/">Help</a>
-                </li>
-                <li>
-                    <a href="http://news.bootswatch.com">Blog</a>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
-                <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
-            </ul>
-
-        </div>
-    </div>
-</div>
-<div class="container">
+<%- include('partials/header.ejs') %>
+<div class="container" style="margin-top: 25px;">
     <div class="col-md-4">
         <div class="dashboard-stat red-intense" align="center" style="border-width: 5px; border-style: solid">
             <div class="visual">
@@ -92,7 +29,7 @@
                 </div>
                 <div class="desc">
 
-                    <a href="#">1v1 MULTI-ARENAS #1</a>
+                    <a href="/servers" style="color:white; text-decoration: underline">1v1 MULTI-ARENAS #1</a>
 
                 </div>
 
@@ -111,28 +48,36 @@
                     <%= server2.raw.numplayers %> / <%= server2.maxplayers %>
                 </div>
                 <div class="desc">
-                    <a href="#">Competitive Retakes #1</a>
+                    <a href="/servers" style="color:white; text-decoration: underline">Competitive Retakes #1</a>
                 </div>
             </div>
 
         </div>
     </div>
     <div class="col-md-12">
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Notice:</strong> Please consider donating a $1.50 to help support our servers and ongoing
+            development costs. You will receive slot reservation and cool chat colors with the words [VIP] next to your
+            name! <a href="#" class="alert-link">Click here to donate</a>.
+        </div>
         <div class="panel panel-danger">
             <div class="panel-heading" align="center"><h4>Top 10 Players by Rank (Active in 30 days)</h4></div>
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                 <tr>
+                    <th>Rank</th>
                     <th>Name</th>
                     <th>Wins</th>
                     <th>Losses</th>
                     <th>Rating</th>
                     <th>Last Date</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <% for(var i = 0; i < data.length; i++) { %>
                 <tr>
-
+                    <th><%= i + 1 %></th>
                     <th id="link<%= i %>"><a
                                 href="https://steamcommunity.com/profiles/<%= data[i].auth %>/"><%= data[i].name %></a>
                     </th>
@@ -140,6 +85,7 @@
                     <th><%= data[i].losses %></th>
                     <th><%= data[i].rating %></th>
                     <th><%= new Date(data[i].lastTime * 1000) %></th>
+                    <th><a href="/profile/<%= data[i].name %>">View More</a></th>
                 </tr>
                 <% } %>
             </table>
@@ -151,16 +97,19 @@
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                 <tr>
+                    <th>Rank</th>
                     <th>Name</th>
                     <th>Wins</th>
                     <th>Losses</th>
                     <th>Rating</th>
                     <th>Last Date</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <% for(var i = 0; i < data.length; i++) { %>
                 <tr>
-                    <!---->
+
+                    <th><%= i + 1 %></th>
                     <th id="link<%= i %>"><a
                                 href="https://steamcommunity.com/profiles/<%= player[i].auth %>/"><%= player[i].name %></a>
                     </th>
@@ -168,6 +117,7 @@
                     <th><%= player[i].losses %></th>
                     <th><%= player[i].rating %></th>
                     <th><%= new Date(player[i].lastTime * 1000) %></th>
+                    <th><a href="/profile/<%= player[i].name %>">View More</a></th>
                 </tr>
                 <% } %>
             </table>
