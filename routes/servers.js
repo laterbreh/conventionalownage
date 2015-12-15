@@ -29,8 +29,8 @@ router.get('/', function (req, res, next) {
             });
         }
     ], function (err, results) {
-        console.log(results[0]);
-        console.log(results[1]);
+        //console.log(results[0]);
+        //console.log(results[1]);
         res.render('servers', {
             title: 'Express',
             data: results
