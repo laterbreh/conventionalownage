@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../models/db.js')
-var SteamID = require('steamid');
 var Gamedig = require('gamedig');
 var async = require('async');
 var servoptions = {
