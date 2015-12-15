@@ -5,6 +5,7 @@
  */
 
 var app = require('../app');
+
 var debug = require('debug')('COwnage:server');
 var http = require('http');
 
@@ -16,11 +17,11 @@ var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create HTTP server
  */
 
 var server = http.createServer(app);
-
+app.io.attach(server);
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -28,6 +29,7 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 
 /**
  * Normalize a port into a number, string, or false.
@@ -88,3 +90,5 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+

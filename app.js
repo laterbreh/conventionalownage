@@ -5,11 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
+//move these bellow app = express() if you need to use socket.io
 var profile = require('./routes/profile');
 var servers = require('./routes/servers');
 var app = express();
-
+app.io = require('socket.io')();
+var routes = require('./routes/index')(app.io);
 
 
 // view engine setup
@@ -27,8 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/profile', profile);
 app.use('/servers', servers);
-
-
 
 
 // catch 404 and forward to error handler

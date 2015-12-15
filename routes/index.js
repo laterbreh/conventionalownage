@@ -10,12 +10,20 @@ var servoptions = {
     host: '192.223.25.155',
     port: 27015
 
-}
+};
 var serv2options = {
     type: 'csgo',
     host: 'coretakes1.game.nfoservers.com',
     port: 27015
-}
+};
+
+//Going to create an admin page for managing the DB. Set up
+//Passport and create an admin page with socket.io that has a button for you to click this.
+//db.query('select * from multi1v1_stats where lastTime < UNIX_TIMESTAMP(NOW() - INTERVAL 3 MONTH)', function (err, results1, fields) {
+//    //Delete all where the last time played is over 3 months ago
+//   console.log(results1.length);
+//    console.log(new Date(results1[0].lastTime * 1000));
+//});
 /* GET Top 10 as JSON Response. */
 router.route('/top10').get(function (req, res) {
     db.query('select * from multi1v1_stats where rating > 1600 and lastTime > UNIX_TIMESTAMP(NOW() - INTERVAL 30 DAY) ORDER BY rating DESC LIMIT 10', function (err, results, fields) {
@@ -84,6 +92,18 @@ router.get('/', function (req, res, next) {
     });
 
 });
+module.exports = function(io){
+    //Socket.IO
+    io.on('connection', function(socket){
+        console.log('User has connected to Webpage');
+        //ON Events
+        socket.on('test', function(){
+            console.log('Successful Socket Test');
+        });
+        //End ON Events
+    });
+    return router;
+};
 
+//module.exports = router;
 
-module.exports = router;
