@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="44dd39bb-6624-4a61-8ef7-9bf832bb2e73" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/partials/footer.ejs" />
+    <list default="true" id="44dd39bb-6624-4a61-8ef7-9bf832bb2e73" name="Default" comment="added footer partial, only on index.ejs">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/style.css" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/servers.js" afterPath="$PROJECT_DIR$/routes/servers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.ejs" afterPath="$PROJECT_DIR$/views/index.ejs" />
     </list>
     <ignored path="COwnage.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -357,7 +353,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450163155224</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added footer partial, only on index.ejs">
+      <created>1450163591504</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1450163591504</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -420,7 +422,8 @@
     <MESSAGE value="Comments for todo" />
     <MESSAGE value="Modified routes, added servers, new partials, added profile display route" />
     <MESSAGE value="servers.js, using async par to speed up loads." />
-    <option name="LAST_COMMIT_MESSAGE" value="servers.js, using async par to speed up loads." />
+    <MESSAGE value="added footer partial, only on index.ejs" />
+    <option name="LAST_COMMIT_MESSAGE" value="added footer partial, only on index.ejs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
