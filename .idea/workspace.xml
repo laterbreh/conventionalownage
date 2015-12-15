@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="44dd39bb-6624-4a61-8ef7-9bf832bb2e73" name="Default" comment="added footer partial, only on index.ejs">
+    <list default="true" id="44dd39bb-6624-4a61-8ef7-9bf832bb2e73" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="COwnage.iws" />
@@ -359,7 +359,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450163591504</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="added footer partial, only on index.ejs">
+      <created>1450163608562</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1450163608562</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
