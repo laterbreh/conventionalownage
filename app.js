@@ -1,3 +1,8 @@
+//TO DO:
+//http://mherman.org/blog/2015/01/31/local-authentication-with-passport-and-express-4/#.VnEJFfkrKUl
+//https://github.com/manjeshpv/node-express-passport-mysql
+//https://github.com/mjhea0/passport-local-express4
+//Once you get this working ^^ -> Make an admin page with various DB calls to clean etc....
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
