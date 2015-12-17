@@ -4,6 +4,7 @@ var db = require('../models/db.js');
 var SteamID = require('steamid');
 var Gamedig = require('gamedig');
 var async = require('async');
+var passport = require('passport');
 var servoptions = {
 
     type: 'csgo',
@@ -36,9 +37,41 @@ router.route('/top10').get(function (req, res) {
         res.json(results);
     });
 });
+/* Login Stuff */
+router.get('/login', function(req, res) {
 
+    // render the page and pass in any flash data if it exists
+    res.render('login.ejs', { message: req.flash('loginMessage') });
+});
+// process the login form
+router.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/', // redirect to the secure profile section
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }),
+    function(req, res) {
+        console.log("hello");
+
+        if (req.body.remember) {
+            req.session.cookie.maxAge = 1000 * 60 * 3;
+        } else {
+            req.session.cookie.expires = false;
+        }
+        res.redirect('/');
+    });
+router.get('/signup', function(req, res) {
+    // render the page and pass in any flash data if it exists
+    res.render('signup.ejs', { message: req.flash('signupMessage') });
+});
+
+// process the signup form
+router.post('/signup', passport.authenticate('local-signup', {
+    successRedirect : '/', // redirect to the secure profile section
+    failureRedirect : '/signup', // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages
+}));
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', isLoggedIn, function (req, res, next) {
     async.parallel([
         function (callback) {
             db.query('select * from multi1v1_stats where rating > 1600 and lastTime > UNIX_TIMESTAMP(NOW() - INTERVAL 30 DAY) ORDER BY rating DESC LIMIT 10', function (err, results1, fields) {
@@ -87,11 +120,27 @@ router.get('/', function (req, res, next) {
             player: results[1],
             online: results[2].length,
             server1: results[3],
-            server2: results[4]
+            server2: results[4],
+            user: req.user
         });
     });
 
 });
+// route middleware to make sure
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        console.log('Not Authed');
+        return next();
+    }
+
+
+    // if they aren't redirect them to the home page
+
+}
 module.exports = function(io){
     //Socket.IO
     io.on('connection', function(socket){
