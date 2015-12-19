@@ -10,9 +10,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session  = require('express-session');
-//move these bellow app = express() if you need to use socket.io
-var profile = require('./routes/profile');
-var servers = require('./routes/servers');
 var app = express();
 app.io = require('socket.io')();
 
@@ -35,6 +32,9 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 var routes = require('./routes/index')(app.io, passport);
+var admin = require('./routes/admin')(app.io, passport);
+var profile = require('./routes/profile');
+var servers = require('./routes/servers');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -48,8 +48,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/admin', admin);
 app.use('/profile', profile);
 app.use('/servers', servers);
+
 
 
 // catch 404 and forward to error handler
