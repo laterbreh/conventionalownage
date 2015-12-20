@@ -16,9 +16,9 @@ var connection = mysql.createPool({
 });
 //connection.connect(function(err){
 connection.getConnection(function(err, connect){
-    connect.query('Select * from multi1v1_stats LIMIT 1', function (err, results) {
-        console.log(results);
-    });
+    //connect.query('Select * from multi1v1_stats LIMIT 1', function (err, results) {
+    //    console.log(results);
+    //});
     if(!err) {
         console.log('Connected to CO Database');
     } else {

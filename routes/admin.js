@@ -11,8 +11,9 @@ var SteamID = require('steamid');
 var Gamedig = require('gamedig');
 var async = require('async');
 var passport = require('passport');
-var dgram = require('dgram');
-var listenserver = dgram.createSocket('udp4');
+var listenserver = require('../models/retakes.js');
+
+
 
 
 /* Server Config for Retakes */
@@ -91,8 +92,21 @@ function isLoggedIn(req, res, next) {
 }
 
 module.exports = function (io) {
+
     /*Socket.IO*/
     io.on('connection', function (socket) {
+        listenserver.on('message', function (message, rinfo) {
+            var msg = message.toString('ascii').slice(5,-1);
+            console.log(msg);
+            socket.emit('response', msg);
+        });
+        listenserver.on('listening', function () {
+            var address = listenserver.address();
+            console.log('UDP Server listening ' + address.address + ':' + address.port);
+            var data = 'UDP Server listening ' + address.address + ':' + address.port;
+            socket.emit('response', data);
+
+        });
         //console.log('User has connected to Admin Page');
         //ON Events
         socket.on('retakestatus', function () {
@@ -105,28 +119,15 @@ module.exports = function (io) {
                 console.log(err.stack);
             });
         });
-        socket.on('startretakestream', function(){
-            var listenserver = dgram.createSocket('udp4');
-            listenserver.on('message', function (message, rinfo) {
-                var msg = message.toString('ascii').slice(5,-1);
-                console.log(msg);
-                socket.emit('response', msg);
-            });
-            listenserver.on('listening', function () {
-                var address = listenserver.address();
-                console.log('UDP Server listening ' + address.address + ':' + address.port);
-                var data = 'UDP Server listening ' + address.address + ':' + address.port;
-                socket.emit('response', data);
+        //socket.on('startretakestream', function(){
 
-            });
-            listenserver.bind(8006);
-            socket.on('stopretakestream', function(){
+            /*socket.on('stopretakestream', function(){
                 //var listenserver = dgram.createSocket('udp4');
                 listenserver.close();
                 var data = 'Logging Stream Stopped!';
                 socket.emit('response', data);
-            });
-        });
+            });*/
+        //});
 
         //End ON Events
     });

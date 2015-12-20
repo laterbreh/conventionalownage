@@ -12,6 +12,23 @@ var bodyParser = require('body-parser');
 var session  = require('express-session');
 var app = express();
 app.io = require('socket.io')();
+//Server Log Stream for Retakes
+
+/*
+listenserver.on('message', function (message, rinfo) {
+  var msg = message.toString('ascii').slice(5,-1);
+  console.log(msg);
+  socket.emit('response', msg);
+});
+listenserver.on('listening', function () {
+  var address = listenserver.address();
+  console.log('UDP Server listening ' + address.address + ':' + address.port);
+  var data = 'UDP Server listening ' + address.address + ':' + address.port;
+  socket.emit('response', data);
+
+});
+*/
+
 
 //Passport Stuff
 var passport = require('passport');

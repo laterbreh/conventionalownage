@@ -1,19 +1,26 @@
 <%- include('partials/header.ejs') %>
 <script>
     var socket = io();
+    var stream = false;
     socket.on('response', function(data){
-        $('#console').append("<p>" + data + "</p>");
-        var d = $('#console');
-        d.scrollTop(d.prop("scrollHeight"));
+        if (stream){
+            $('#console').append("<p>" + data + "</p>");
+            var d = $('#console');
+            d.scrollTop(d.prop("scrollHeight"));
+        }
+
     });
+
     function getstatus(){
         socket.emit('retakestatus');
     }
     function startretakestream(){
-        socket.emit('startretakestream');
+        //socket.emit('startretakestream');
+        stream = true;
     }
     function stopretakestream(){
-        socket.emit('stopretakestream');
+        //socket.emit('stopretakestream');
+        stream = false;
     }
 </script>
 <div class="container">
