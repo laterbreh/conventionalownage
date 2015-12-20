@@ -1,3 +1,8 @@
+//http://stackoverflow.com/questions/19919790/how-to-recieve-log-from-srcds-in-node-js
+//Log stream to admin?
+//May have to change server.cfg to receive
+//http://forums.steampowered.com/forums/showthread.php?t=277487
+
 'use strict';
 var express = require('express');
 var router = express.Router();
@@ -6,6 +11,9 @@ var SteamID = require('steamid');
 var Gamedig = require('gamedig');
 var async = require('async');
 var passport = require('passport');
+
+
+
 /* Server Config for Retakes */
 let rcon = require('srcds-rcon')({
     address: '66.150.164.219',
@@ -95,7 +103,21 @@ module.exports = function (io) {
                 console.log('caught', err);
                 console.log(err.stack);
             });
+            var dgram = require('dgram');
+            var listenserver = dgram.createSocket('udp4');
+            listenserver.on('message', function (message, rinfo) {
+                var msg = message.toString('ascii').slice(5,-1);
+                console.log(msg);
+                socket.emit('response', msg);
+            });
+            listenserver.on('listening', function () {
+                var address = listenserver.address();
+                console.log('UDP Server listening ' + address.address + ':' + address.port);
+                var data = 'UDP Server listening ' + address.address + ':' + address.port;
+                socket.emit('response', data);
 
+            });
+            listenserver.bind(8006);
         });
         //End ON Events
     });
