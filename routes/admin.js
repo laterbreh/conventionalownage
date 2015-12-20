@@ -12,7 +12,7 @@ var Gamedig = require('gamedig');
 var async = require('async');
 var passport = require('passport');
 var dgram = require('dgram');
-var listenserver = dgram.createSocket('udp4');
+
 
 
 /* Server Config for Retakes */
@@ -106,6 +106,7 @@ module.exports = function (io) {
             });
         });
         socket.on('startretakestream', function(){
+            var listenserver = dgram.createSocket('udp4');
             listenserver.on('message', function (message, rinfo) {
                 var msg = message.toString('ascii').slice(5,-1);
                 console.log(msg);
