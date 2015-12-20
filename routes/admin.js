@@ -92,12 +92,11 @@ function isLoggedIn(req, res, next) {
 }
 
 module.exports = function (io) {
-
     /*Socket.IO*/
     io.on('connection', function (socket) {
         listenserver.on('message', function (message, rinfo) {
             var msg = message.toString('ascii').slice(5,-1);
-            console.log(msg);
+            //console.log(msg);
             socket.emit('response', msg);
         });
         listenserver.on('listening', function () {
@@ -112,23 +111,13 @@ module.exports = function (io) {
         socket.on('retakestatus', function () {
             rcon.connect().then(() =>  rcon.command('status').then(status =>
                     //console.log(`got status ${sm}`)
-                    socket.emit('response', `${status}`)
+                    socket.emit('rconresponse', `${status}`)
                 )
             ).catch(err => {
                 console.log('caught', err);
                 console.log(err.stack);
             });
         });
-        //socket.on('startretakestream', function(){
-
-            /*socket.on('stopretakestream', function(){
-                //var listenserver = dgram.createSocket('udp4');
-                listenserver.close();
-                var data = 'Logging Stream Stopped!';
-                socket.emit('response', data);
-            });*/
-        //});
-
         //End ON Events
     });
     return router;

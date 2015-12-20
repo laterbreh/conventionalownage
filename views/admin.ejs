@@ -2,6 +2,11 @@
 <script>
     var socket = io();
     var stream = false;
+    socket.on('rconresponse', function(data){
+            $('#console').append("<p>" + data + "</p>");
+            var d = $('#console');
+            d.scrollTop(d.prop("scrollHeight"));
+    });
     socket.on('response', function(data){
         if (stream){
             $('#console').append("<p>" + data + "</p>");
@@ -10,17 +15,21 @@
         }
 
     });
-
     function getstatus(){
         socket.emit('retakestatus');
     }
     function startretakestream(){
         //socket.emit('startretakestream');
         stream = true;
+        $("#r1").hide();
+        $("#r2").show();
+
     }
     function stopretakestream(){
         //socket.emit('stopretakestream');
         stream = false;
+        $("#r1").show();
+        $("#r2").hide();
     }
 </script>
 <div class="container">
@@ -54,8 +63,8 @@
             <div class="well">
                 <h3><span class="fa fa-user"></span> Retakes #1 Control</h3>
                 <a onclick="getstatus()" class="btn btn-warning" role="button">Get Status Of Retakes</a>
-                <a onclick="startretakestream()" class="btn btn-warning" role="button">Start Retake Stream</a>
-                <a onclick="stopretakestream()" class="btn btn-warning" role="button">Stop Log Stream</a>
+                <a onclick="startretakestream()" class="btn btn-warning" role="button" id="r1">Start Retake Stream</a>
+                <a onclick="stopretakestream()" class="btn btn-warning" role="button" id="r2">Stop Log Stream</a>
                 <br /><br />
                 <h4 style="font-size: 15px">Output Console</h4>
                 <div class="well" id="console" style="width: 100%; height:300px; overflow-y: auto; background-color: black; color:greenyellow !important">
