@@ -120,13 +120,14 @@ module.exports = function (io) {
 
             });
             listenserver.bind(8006);
+            socket.on('stopretakestream', function(){
+                //var listenserver = dgram.createSocket('udp4');
+                listenserver.close();
+                var data = 'Logging Stream Stopped!';
+                socket.emit('response', data);
+            });
         });
-        socket.on('stopretakestream', function(){
-            var listenserver = dgram.createSocket('udp4');
-           listenserver.close();
-            var data = 'Logging Stream Stopped!';
-            socket.emit('response', data);
-        });
+
         //End ON Events
     });
     return router;
