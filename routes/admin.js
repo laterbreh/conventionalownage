@@ -12,7 +12,7 @@ var Gamedig = require('gamedig');
 var async = require('async');
 var passport = require('passport');
 var dgram = require('dgram');
-
+var listenserver = dgram.createSocket('udp4');
 
 
 /* Server Config for Retakes */
