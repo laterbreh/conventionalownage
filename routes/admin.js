@@ -2,7 +2,6 @@
 //Log stream to admin?
 //May have to change server.cfg to receive
 //http://forums.steampowered.com/forums/showthread.php?t=277487
-
 'use strict';
 var express = require('express');
 var router = express.Router();
@@ -12,9 +11,6 @@ var Gamedig = require('gamedig');
 var async = require('async');
 var passport = require('passport');
 var listenserver = require('../models/retakes.js');
-
-
-
 
 /* Server Config for Retakes */
 let rcon = require('srcds-rcon')({
@@ -95,7 +91,7 @@ module.exports = function (io) {
     /*Socket.IO*/
     io.on('connection', function (socket) {
         listenserver.on('message', function (message, rinfo) {
-            var msg = message.toString('ascii').slice(5,-1);
+            var msg = message.toString('ascii').slice(5, -1);
             //console.log(msg);
             socket.emit('response', msg);
         });
