@@ -11,7 +11,8 @@ var SteamID = require('steamid');
 var Gamedig = require('gamedig');
 var async = require('async');
 var passport = require('passport');
-
+var dgram = require('dgram');
+var listenserver = dgram.createSocket('udp4');
 
 
 /* Server Config for Retakes */
@@ -103,8 +104,8 @@ module.exports = function (io) {
                 console.log('caught', err);
                 console.log(err.stack);
             });
-            var dgram = require('dgram');
-            var listenserver = dgram.createSocket('udp4');
+        });
+        socket.on('startretakestream', function(){
             listenserver.on('message', function (message, rinfo) {
                 var msg = message.toString('ascii').slice(5,-1);
                 console.log(msg);
@@ -118,6 +119,11 @@ module.exports = function (io) {
 
             });
             listenserver.bind(8006);
+        });
+        socket.on('stopretakestream', function(){
+           listenserver.close();
+            var data = 'Logging Stream Stopped!';
+            socket.emit('response', data);
         });
         //End ON Events
     });
