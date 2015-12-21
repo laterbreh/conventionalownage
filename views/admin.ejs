@@ -2,9 +2,25 @@
 <script>
     $(document).ready(function () {
         $("#r2").hide();
+        $("#m2").hide();
+
     });
     var socket = io();
     var stream = false;
+    var stream2 = false;
+    socket.on('rconresponsetwo', function (data) {
+        $('#consoletwo').append("<p>" + data + "</p>");
+        var d = $('#consoletwo');
+        d.scrollTop(d.prop("scrollHeight"));
+    });
+    socket.on('multistatus', function (data) {
+        if (stream2) {
+            $('#consoletwo').append("<p>" + data + "</p>");
+            var d = $('#consoletwo');
+            d.scrollTop(d.prop("scrollHeight"));
+        }
+
+    });
     socket.on('rconresponse', function (data) {
         $('#console').append("<p>" + data + "</p>");
         var d = $('#console');
@@ -21,6 +37,9 @@
     function getstatus() {
         socket.emit('retakestatus');
     }
+    function getstatustwo() {
+        socket.emit('multistatus');
+    }
     function startretakestream() {
         stream = true;
         $("#r1").hide();
@@ -31,6 +50,18 @@
         stream = false;
         $("#r1").show();
         $("#r2").hide();
+    }
+
+    function start1v1stream() {
+        stream = true;
+        $("#m1").hide();
+        $("#m2").show();
+
+    }
+    function stop1v1stream() {
+        stream = false;
+        $("#m1").show();
+        $("#m2").hide();
     }
 </script>
 <div class="container">
@@ -57,6 +88,7 @@
                 <h3><span class="fa fa-bolt"></span> Control Panel</h3>
                 <button data-toggle="collapse" data-target="#db" class="btn btn-danger">DB Commands</button>
                 <button data-toggle="collapse" data-target="#retake" class="btn btn-danger">Retakes Console</button>
+                <button data-toggle="collapse" data-target="#multi" class="btn btn-danger">Multi 1v1 Console</button>
             </div>
             <div class="panel panel-danger collapse" id="db">
                 <div class="panel-heading">
@@ -84,6 +116,23 @@
                     <br/><br/>
                     <h4 style="font-size: 15px">Output Console</h4>
                     <div class="well" id="console"
+                         style="width: 100%; height:300px; overflow-y: auto; background-color: black; color:greenyellow !important">
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-danger collapse" id="multi">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="font-size: 30px"><span class="fa fa-user"></span> Multi-1v1 #1 Control
+                        Console</h3>
+                </div>
+                <div class="panel-body">
+                    <a onclick="getstatustwo()" class="btn btn-warning" role="button">Get Status Of Multi1v1</a>
+                    <a onclick="start1v1stream()" class="btn btn-warning" role="button" id="m1">Start Log Stream</a>
+                    <a onclick="stop1v1stream()" class="btn btn-warning" role="button" id="m2">Stop Log Stream</a>
+                    <br/><br/>
+                    <h4 style="font-size: 15px">Output Console</h4>
+                    <div class="well" id="consoletwo"
                          style="width: 100%; height:300px; overflow-y: auto; background-color: black; color:greenyellow !important">
 
                     </div>
