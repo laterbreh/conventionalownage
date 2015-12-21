@@ -7,14 +7,14 @@
     });
     var socket = io();
     var stream = false;
-    var stream2 = false;
+    var streamtwo = false;
     socket.on('rconresponsetwo', function (data) {
         $('#consoletwo').append("<p>" + data + "</p>");
         var d = $('#consoletwo');
         d.scrollTop(d.prop("scrollHeight"));
     });
     socket.on('multistatus', function (data) {
-        if (stream2) {
+        if (streamtwo) {
             $('#consoletwo').append("<p>" + data + "</p>");
             var d = $('#consoletwo');
             d.scrollTop(d.prop("scrollHeight"));
@@ -53,13 +53,13 @@
     }
 
     function start1v1stream() {
-        stream = true;
+        streamtwo = true;
         $("#m1").hide();
         $("#m2").show();
 
     }
     function stop1v1stream() {
-        stream = false;
+        streamtwo = false;
         $("#m1").show();
         $("#m2").hide();
     }

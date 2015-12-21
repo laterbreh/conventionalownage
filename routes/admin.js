@@ -92,15 +92,15 @@ module.exports = function (io) {
     /*Socket.IO*/
     io.on('connection', function (socket) {
         listenservertwo.on('message', function (message, rinfo) {
-            var msg2 = message.toString('ascii').slice(5, -1);
+            var msgtwo = message.toString('ascii').slice(5, -1);
             //console.log(msg);
-            socket.emit('response2', msg2);
+            socket.emit('multistatus', msgtwo);
         });
         listenservertwo.on('listening', function () {
-            var address = listenserver.address();
-            console.log('UDP Server listening ' + address.address + ':' + address.port);
-            var data2 = 'UDP Server listening ' + address.address + ':' + address.port;
-            socket.emit('response2', data2);
+            var addresstwo = listenservertwo.address();
+            console.log('UDP Server listening ' + addresstwo.address + ':' + addresstwo.port);
+            var datatwo = 'UDP Server listening ' + addresstwo.address + ':' + addresstwo.port;
+            socket.emit('multistatus', datatwo);
 
         });
         listenserver.on('message', function (message, rinfo) {
