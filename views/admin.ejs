@@ -1,69 +1,5 @@
 <%- include('partials/header.ejs') %>
-<script>
-    $(document).ready(function () {
-        $("#r2").hide();
-        $("#m2").hide();
-
-    });
-    var socket = io();
-    var stream = false;
-    var streamtwo = false;
-    socket.on('rconresponsetwo', function (data) {
-        $('#consoletwo').append("<p>" + data + "</p>");
-        var d = $('#consoletwo');
-        d.scrollTop(d.prop("scrollHeight"));
-    });
-    socket.on('multistatus', function (data) {
-        if (streamtwo) {
-            $('#consoletwo').append("<p>" + data + "</p>");
-            var d = $('#consoletwo');
-            d.scrollTop(d.prop("scrollHeight"));
-        }
-
-    });
-    socket.on('rconresponse', function (data) {
-        $('#console').append("<p>" + data + "</p>");
-        var d = $('#console');
-        d.scrollTop(d.prop("scrollHeight"));
-    });
-    socket.on('response', function (data) {
-        if (stream) {
-            $('#console').append("<p>" + data + "</p>");
-            var d = $('#console');
-            d.scrollTop(d.prop("scrollHeight"));
-        }
-
-    });
-    function getstatus() {
-        socket.emit('retakestatus');
-    }
-    function getstatustwo() {
-        socket.emit('multistatus');
-    }
-    function startretakestream() {
-        stream = true;
-        $("#r1").hide();
-        $("#r2").show();
-
-    }
-    function stopretakestream() {
-        stream = false;
-        $("#r1").show();
-        $("#r2").hide();
-    }
-
-    function start1v1stream() {
-        streamtwo = true;
-        $("#m1").hide();
-        $("#m2").show();
-
-    }
-    function stop1v1stream() {
-        streamtwo = false;
-        $("#m1").show();
-        $("#m2").hide();
-    }
-</script>
+<script src="js/serverconsole.js"></script>
 <div class="container">
     <div class="page-header text-center">
         <h1><span class="fa fa-lock"></span> Administration Page</h1>
@@ -84,13 +20,7 @@
                 </p>
 
             </div>
-            <div class="well">
-                <h3><span class="fa fa-bolt"></span> Control Panel</h3>
-                <button data-toggle="collapse" data-target="#db" class="btn btn-danger">DB Commands</button>
-                <button data-toggle="collapse" data-target="#retake" class="btn btn-danger">Retakes Console</button>
-                <button data-toggle="collapse" data-target="#multi" class="btn btn-danger">Multi 1v1 Console</button>
-            </div>
-            <div class="panel panel-danger collapse" id="db">
+            <div class="panel panel-primary" id="db">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="font-size: 30px"><span class="fa fa-user"></span> Database Commands
                     </h3>
@@ -104,6 +34,12 @@
                     <a href="/admin/antisquater" class="btn btn-warning" role="button">Run Anti-Squater</a>
                 </div>
             </div>
+            <div class="well">
+                <h3><span class="fa fa-bolt"></span> Server Control Panel</h3>
+                <button data-toggle="collapse" data-target="#retake" class="btn btn-danger">Retakes Console</button>
+                <button data-toggle="collapse" data-target="#multi" class="btn btn-danger">Multi 1v1 Console</button>
+            </div>
+
             <div class="panel panel-danger collapse" id="retake">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="font-size: 30px"><span class="fa fa-user"></span> Retakes #1 Control

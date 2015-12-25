@@ -82,6 +82,7 @@ app.use(function (err, req, res, next) {
     });
 });
 
+console.log('Still works?')
 
 module.exports = app;
 

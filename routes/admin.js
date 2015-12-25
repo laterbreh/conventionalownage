@@ -8,8 +8,7 @@ var async = require('async');
 var passport = require('passport');
 var listenserver = require('../models/retakes.js');
 var listenservertwo = require('../models/multione.js');
-//JYiSMU
-/* Server Config for Retakes */
+/* RCON CONFIGS */
 let rcon = require('srcds-rcon')({
     address: '66.150.164.219',
     password: 'fH4iV3'
@@ -75,11 +74,17 @@ router.get('/antisquater', isLoggedIn, function (req, res) {
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
-    if (req.user.admin == 0) { //change this to 1
-        //console.log(req);
-        console.log('Admin?: ');
-        console.log(req.user.admin);
-        return next();
+    if (req.user) { //change this to 1
+        if(req.user.admin == 0){
+            //console.log(req);
+            console.log('Admin?: ');
+            console.log(req.user.admin);
+            return next();
+        } else {
+            console.log('Not admin');
+            res.redirect('/login');
+            return next();
+        }
     } else {
         console.log('Not Authed');
         res.redirect('/login');
