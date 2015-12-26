@@ -17,8 +17,8 @@ var serv2options = {
     port: 27015
 };
 /* JSON API GET Top 10 as JSON Response. */
-router.route('/top10').get(function (req, res) {
-    db.query('select * from multi1v1_stats where rating > 1600 and lastTime > UNIX_TIMESTAMP(NOW() - INTERVAL 30 DAY) ORDER BY rating DESC LIMIT 10', function (err, results, fields) {
+router.route('/top15').get(function (req, res) {
+    db.query('select * from multi1v1_stats where rating > 1600 and lastTime > UNIX_TIMESTAMP(NOW() - INTERVAL 30 DAY) ORDER BY rating DESC LIMIT 15', function (err, results, fields) {
         if (err) throw err;
         for (var x = 0; x < results.length; ++x) {
             var sid = new SteamID(results[x].auth);

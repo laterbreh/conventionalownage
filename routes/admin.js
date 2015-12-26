@@ -37,7 +37,7 @@ router.get('/deleteinactive', isLoggedIn, function (req, res) {
     });
 });
 router.get('/antisquater', isLoggedIn, function (req, res) {
-    req.flash('dbaction', 'Query Executed is being run on the server. Do not run this query more than once per 2 weeks.');
+    req.flash('dbaction', 'Query has been executed is being run on the server. Do not run this query more than once per 2 weeks.');
     res.redirect('/admin');
     db.query('SELECT accountID, name, rating, lastTime, TRUNCATE((unix_timestamp(NOW()) - lastTime) / 86400, 0) AS elapsedtime_days FROM multi1v1_stats WHERE rating > 1500 AND lastTime > 0 AND (unix_timestamp(NOW()) - lastTime) > 86400', function (err, results, fields) {
         console.log(results.length);
@@ -122,6 +122,32 @@ module.exports = function (io) {
         });
         //console.log('User has connected to Admin Page');
         //ON Events
+        socket.on('retakercon', function(data){
+            console.log('DATA');
+            console.log(data);
+            rcon.connect().then(() =>  rcon.command(data).then(data =>
+                    //console.log(`got status ${sm}`)
+                    socket.emit('rconresponse', `${data}`)
+                )
+            ).catch(err => {
+                console.log('caught', err);
+                console.log(err.stack);
+                socket.emit('rconresponse', err);
+            });
+        });
+        socket.on('multircon', function(data){
+            console.log('Multi Rcon DATA');
+            console.log(data);
+            rcontwo.connect().then(() =>  rcontwo.command(data).then(data =>
+                    //console.log(`got status ${sm}`)
+                    socket.emit('rconresponsetwo', `${data}`)
+                )
+            ).catch(err => {
+                console.log('caught', err);
+                console.log(err.stack);
+                socket.emit('rconresponsetwo', err);
+            });
+        });
         socket.on('retakestatus', function () {
             rcon.connect().then(() =>  rcon.command('status').then(status =>
                     //console.log(`got status ${sm}`)

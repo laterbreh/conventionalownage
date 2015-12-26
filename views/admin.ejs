@@ -20,11 +20,10 @@
                 </p>
 
             </div>
-            <div class="panel panel-primary" id="db">
-                <div class="panel-heading">
-                    <h3 class="panel-title" style="font-size: 30px"><span class="fa fa-user"></span> Database Commands
-                    </h3>
-                </div>
+            <div class="well" id="db">
+
+                <h3><span class="fa fa-user"></span> DB Maintenance</h3>
+
                 <% if (message.length > 0) { %>
                 <br/>
                 <div class="alert alert-success" style="margin: 5px"><%= message %></div>
@@ -55,11 +54,17 @@
                          style="width: 100%; height:300px; overflow-y: auto; background-color: black; color:greenyellow !important">
 
                     </div>
+                    <div class="form-group">
+                        <label class="control-label" for="focusedInput">Custom Commands</label>
+                        <input class="form-control" id="retakeinput" type="text" value="sm_say Hai Guys">
+                        <a href="javascript:void(0)" id="sendrconone" class="btn btn-success">Send</a>
+                    </div>
                 </div>
             </div>
             <div class="panel panel-danger collapse" id="multi">
                 <div class="panel-heading">
-                    <h3 class="panel-title" style="font-size: 30px"><span class="fa fa-user"></span> Multi-1v1 #1 Control
+                    <h3 class="panel-title" style="font-size: 30px"><span class="fa fa-user"></span> Multi-1v1 #1
+                        Control
                         Console</h3>
                 </div>
                 <div class="panel-body">
@@ -71,6 +76,11 @@
                     <div class="well" id="consoletwo"
                          style="width: 100%; height:300px; overflow-y: auto; background-color: black; color:greenyellow !important">
 
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="focusedInput">Custom Commands</label>
+                        <input class="form-control" id="multiinput" type="text" value="status"><a href="javascript:void(0)"
+                                                                                                             class="btn btn-success" id="sendrcontwo">Send</a>
                     </div>
                 </div>
             </div>

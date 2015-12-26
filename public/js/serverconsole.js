@@ -6,6 +6,20 @@ $(document).ready(function () {
     $("#r2").hide();
     //Multi1v1
     $("#m2").hide();
+    /////////////////////////////
+    //Retakes Server Click Event
+    /////////////////////////////
+    $('#sendrconone').click(function () {
+        var value = $('#retakeinput').val();
+        socket.emit('retakercon', value);
+    });
+    /////////////////////////////
+    //Multi1v1 Click Event
+    /////////////////////////////
+    $('#sendrcontwo').click(function () {
+        var value = $('#multiinput').val();
+        socket.emit('multircon', value);
+    });
 });
 var socket = io();
 /////////////////////////////
@@ -13,15 +27,28 @@ var socket = io();
 /////////////////////////////
 var stream = false;
 socket.on('rconresponse', function (data) {
-    $('#console').append("<p>" + data + "</p>");
-    var d = $('#console');
-    d.scrollTop(d.prop("scrollHeight"));
+    if (data.indexOf('say') >= 0) {
+        $('#console').append("<p style=\"color: white\">" + data + "</p>");
+        var d = $('#console');
+        d.scrollTop(d.prop("scrollHeight"));
+    } else {
+        $('#console').append("<p style=\"color: orange\">" + data + "</p>");
+        var d = $('#console');
+        d.scrollTop(d.prop("scrollHeight"));
+    }
 });
 socket.on('response', function (data) {
     if (stream) {
-        $('#console').append("<p>" + data + "</p>");
-        var d = $('#console');
-        d.scrollTop(d.prop("scrollHeight"));
+        if (data.indexOf('say') >= 0) {
+            $('#console').append("<p style=\"color: white\">" + data + "</p>");
+            var d = $('#console');
+            d.scrollTop(d.prop("scrollHeight"));
+        } else {
+            $('#console').append("<p>" + data + "</p>");
+            var d = $('#console');
+            d.scrollTop(d.prop("scrollHeight"));
+        }
+
     }
 
 });
@@ -44,15 +71,32 @@ function stopretakestream() {
 /////////////////////////////
 var streamtwo = false;
 socket.on('rconresponsetwo', function (data) {
-    $('#consoletwo').append("<p>" + data + "</p>");
-    var d = $('#consoletwo');
-    d.scrollTop(d.prop("scrollHeight"));
+    if (data.indexOf('say') >= 0) {
+        $('#consoletwo').append("<p style=\"color: white\">" + data + "</p>");
+        var d = $('#consoletwo');
+        d.scrollTop(d.prop("scrollHeight"));
+
+    } else {
+        $('#consoletwo').append("<p style=\"color: orange\">" + data + "</p>");
+        var d = $('#consoletwo');
+        d.scrollTop(d.prop("scrollHeight"));
+    }
+
+
 });
 socket.on('multistatus', function (data) {
     if (streamtwo) {
-        $('#consoletwo').append("<p>" + data + "</p>");
-        var d = $('#consoletwo');
-        d.scrollTop(d.prop("scrollHeight"));
+
+        if (data.indexOf('say') >= 0) {
+            $('#consoletwo').append("<p style=\"color: white\">" + data + "</p>");
+            var d = $('#consoletwo');
+            d.scrollTop(d.prop("scrollHeight"));
+
+        } else {
+            $('#consoletwo').append("<p>" + data + "</p>");
+            var d = $('#consoletwo');
+            d.scrollTop(d.prop("scrollHeight"));
+        }
     }
 
 });
