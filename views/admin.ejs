@@ -1,3 +1,5 @@
+<!--Create a modal that is triggered from a button that displays basic commands such as the say commands for SM
+https://forums.alliedmods.net/showthread.php?t=56764-->
 <%- include('partials/header.ejs') %>
 <script src="js/serverconsole.js"></script>
 <div class="container">
@@ -57,7 +59,8 @@
                     <div class="form-group">
                         <label class="control-label" for="focusedInput">Custom Commands</label>
                         <input class="form-control" id="retakeinput" type="text" value="sm_say Hai Guys">
-                        <a href="javascript:void(0)" id="sendrconone" class="btn btn-success">Send</a>
+                        <a href="javascript:void(0)" id="sendrconone" class="btn btn-success" style="margin-right:5px;">Send</a>
+                        <a href="#rconTips" role="button" class="btn btn-info" data-toggle="modal">Rcon Commands Help</a>
                     </div>
                 </div>
             </div>
@@ -89,6 +92,51 @@
 
     </div>
 
+</div>
+<div id="rconTips" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">Basic Sourcemod Commands:</h4>
+            </div>
+            <div class="modal-body">
+                <div class="well">
+                    <p>For a comprehensive sourcemod commands list: <a href="https://wiki.alliedmods.net/Admin_commands_(sourcemod)">Here</a></p>
+                </div>
+                <div class="well">
+                <ul><li>sm_say &lt;message&gt;<ul><li>Message is sent to all players in the Chat window.</li>
+                        </ul></li>
+                    <li>sm_chat &lt;message&gt;<ul><li>Message is sent to all admins in the Chat window.</li>
+                        </ul></li>
+                    <li>sm_csay &lt;message&gt;<ul><li>Message is sent to all players in the center of the screen</li>
+                        </ul></li>
+                    <li>sm_hsay &lt;message&gt;<ul><li>Message is sent to all players as a hint message</li>
+                        </ul></li>
+                    <li>sm_tsay [color] &lt;message&gt;<ul><li>Message is sent to all players as a dialog in the top left, colored white by default.</li>
+                            <li>Allowed colors: White, Red, Green, Blue, Yellow, Purple, Cyan, Orange, Pink, Olive, "Lime, Violet, Lightblue</li>
+                        </ul></li>
+                    <li>sm_psay &lt;target&gt; &lt;message&gt;<ul><li>A messge is privately sent to the target.</li>
+                        </ul></li>
+                    <li>sm_msay &lt;message&gt;<ul><li>Sends a message to every as a menu panel. Use \n for new lines.</li>
+                        </ul></li>
+                    <li>say @message<ul><li>Using standard chat, this is a shortcut for sm_say</li>
+                        </ul></li>
+                    <li>say @@target message<ul><li>Using standard chat, this is a shortcut for sm_psay</li>
+                        </ul></li>
+                    <li>say @@@message<ul><li>Using standard chat, this is a shortcut for sm_csay</li>
+                        </ul></li>
+                    <li>say_team @message<ul><li>Using the team chat, this is a shortcut for sm_chat</li>
+                        </ul></li>
+                </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
